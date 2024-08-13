@@ -1,0 +1,36 @@
+{
+  "authenticated": true,
+  "user": {
+    "display_name": "jobo.mp3",
+    "external_urls": { "spotify": "https://open.spotify.com/user/joeboylson" },
+    "href": "https://api.spotify.com/v1/users/joeboylson",
+    "id": "joeboylson",
+    "images": [
+      {
+        "url": "https://i.scdn.co/image/ab67757000003b82bb491fc58a5590ed1232f9c6",
+        "height": 64,
+        "width": 64
+      },
+      {
+        "url": "https://i.scdn.co/image/ab6775700000ee85bb491fc58a5590ed1232f9c6",
+        "height": 300,
+        "width": 300
+      }
+    ],
+    "type": "user",
+    "uri": "spotify:user:joeboylson",
+    "followers": { "href": null, "total": 11 },
+    "country": "US",
+    "product": "premium",
+    "explicit_content": { "filter_enabled": false, "filter_locked": false },
+    "email": "joeboylson+spotify@gmail.com"
+  },
+  "spotifyTokenData": {
+    "access_token": "BQD9KI0Fv3cKjd_iBj_obU6B5gfuh_TNls5gTZU0OQvGZAsiAWN4wezzwM4HnWvdBIEuY5H-07E5p1WMGNv5OSZdyk8GfCl22MgruXwP8NCzficgp3DIn4sJp5FsCLpprFmC_OXgtawo5yf6IapHS0NOqPpFBpLiTJ6n0ubjPTNa5QPHIAeaY6ZriuhFF32YBtcnhWA",
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "refresh_token": "AQDc1k54ZTx3jSHSZ5VL8z6woNN0Iav-7kCDTyHChCeVnNpCDlyrnPXMLrXh-rwjuPJVQiHKvF48s0wpKCdTkxLc7edWyHzlkRWqmXUloQOPbn-NzDB4fxPGWbP6rD85j04",
+    "scope": "user-read-email user-read-private"
+  },
+  "tokenTimeLeft": 3419816
+}

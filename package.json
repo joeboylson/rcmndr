@@ -1,0 +1,32 @@
+{
+  "name": "express-react-boilerplate",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup-server": "npm run --prefix server setup",
+    "setup-client": "npm run --prefix client setup",
+    "setup": "npm install && npm run setup-server && npm run setup-client",
+    "dev-server": "npm run --prefix server dev",
+    "dev-client": "npm run --prefix client dev",
+    "dev": "env-cmd concurrently 'npm run dev-server' 'npm run dev-client'",
+    "build-server": "npm run --prefix server build",
+    "build-client": "npm run --prefix client build",
+    "build": "npm run build-client && npm run build-server",
+    "start": "npm run --prefix server start",
+    "local-start": "env-cmd npm run --prefix server start",
+    "clean": "rm -rf server/dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "env-cmd": "^10.1.0"
+  },
+  "dependencies": {
+    "@spotify/web-api-ts-sdk": "^1.2.0",
+    "@types/lodash": "^4.17.5"
+  }
+}
