@@ -13,9 +13,7 @@ export default function Header() {
   const handleLogout = useCallback(() => {
     logout();
     navigate("/login");
-  }, []);
-
-  const x = authenticatedUser as any;
+  }, [logout, navigate]);
 
   return (
     <div id="components-header">

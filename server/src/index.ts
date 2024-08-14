@@ -1,6 +1,6 @@
 import express from "express";
 import session, { SessionOptions } from "express-session";
-import { authenticationRouter, setStaticFolder } from "./router";
+import { authenticationRouter, setStaticFolder, trackRouter } from "./router";
 import { devSessionMiddleware, isProduction } from "./utils";
 
 /**
@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(devSessionMiddleware);
 
 app.use("/api/auth", authenticationRouter);
+app.use("/api/track", trackRouter);
 setStaticFolder(app);
 
 app.listen(SERVER_PORT, () => {

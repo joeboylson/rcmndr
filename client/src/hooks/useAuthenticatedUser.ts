@@ -47,16 +47,16 @@ export function useAuthenticatedUser(options?: _options) {
   const logout = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/auth/logout`);
+      await axios.get(`/api/auth/logout`);
       navigate("/login");
     } finally {
       setLoading(false);
     }
-  }, [authenticationUrl]);
+  }, [navigate]);
 
   useEffect(() => {
     if (!options?.skipAuthenticatedUserQuery) getIsAuthenticated();
-  }, [getIsAuthenticated]);
+  }, [getIsAuthenticated, options]);
 
   const exportFunctions = {
     getAuthenticationUrl,
