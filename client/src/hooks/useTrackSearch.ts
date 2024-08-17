@@ -9,6 +9,7 @@ export function useTracksSearch() {
 
   const searchTracks = useCallback(async (q: string) => {
     try {
+      setLoading(true);
       if (isEmpty(q)) return;
 
       const params = { q };

@@ -10,9 +10,6 @@ const router = createBrowserRouter([
   },
   {
     path: Routes.ROOT,
-    /**
-     * TODO: add Home Page
-     */
     element: <Home />,
   },
 ]);

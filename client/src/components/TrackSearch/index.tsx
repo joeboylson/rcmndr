@@ -1,8 +1,56 @@
-import { useEffect, useMemo } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import { useStateDebounced } from "../../hooks/useStateDebounced";
 import { useTracksSearch } from "../../hooks/useTrackSearch";
 import { isEmpty } from "lodash";
 import { Track } from "@spotify/web-api-ts-sdk";
+import styled from "styled-components";
+import TracksList from "../TracksList";
+import {
+  Check,
+  Empty,
+  HourglassHigh,
+  HourglassLow,
+} from "@phosphor-icons/react";
+
+const StyledTracksSearch = styled("div")`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+`;
+
+const InputWrapper = styled("div")`
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+`;
+
+const TrackQInput = styled("input")`
+  width: 100%;
+  border: 0;
+  border: 1px solid #9f0fff;
+  color: #d596ff;
+  outline: none;
+  background-color: transparent;
+  padding: 8px 16px;
+  border-radius: 8px;
+
+  &:disabled {
+    color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+`;
+
+const NoResults = styled("div")`
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  gap: 12px;
+
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid yellow;
+`;
 
 interface _props {
   onTrackSelect: (track: Track) => void;
@@ -16,14 +64,17 @@ export default function TracksSearch({
   filterTracks,
 }: _props) {
   const { tracks, searchTracks, loading } = useTracksSearch();
-  const [trackQ, setTrackQ] = useStateDebounced<string>("", 1000);
+  const [trackQ, setTrackQ, debouncing] = useStateDebounced<string>("", 500);
 
   useEffect(() => {
     if (isEmpty(trackQ) || !trackQ) return;
     searchTracks(trackQ);
   }, [searchTracks, trackQ]);
 
-  const showResults = useMemo(() => !loading && !disabled, [loading, disabled]);
+  const showResults = useMemo(
+    () => !loading && !disabled && !!trackQ,
+    [loading, disabled, trackQ]
+  );
 
   const filteredTracks = useMemo(() => {
     if (!filterTracks) return tracks;
@@ -32,28 +83,29 @@ export default function TracksSearch({
   }, [filterTracks, tracks]);
 
   return (
-    <>
-      <input
-        type="text"
-        onChange={(e) => setTrackQ(e.target.value)}
-        disabled={disabled}
-      />
-      {loading && <p>Loading...</p>}
-      {showResults && (
-        <>
-          {filteredTracks?.map((track) => {
-            const _onClick = disabled ? () => {} : () => onTrackSelect(track);
+    <StyledTracksSearch>
+      <InputWrapper>
+        {debouncing && !loading && <HourglassHigh />}
+        {loading && <HourglassLow />}
+        {!debouncing && !loading && <Check />}
 
-            return (
-              <button onClick={_onClick}>
-                {track.name} <br />
-                {track.album.name} <br />
-                {track.artists.map((artist) => artist.name).join(", ")}
-              </button>
-            );
-          })}
-        </>
+        <TrackQInput
+          type="text"
+          onChange={(e) => setTrackQ(e.target.value)}
+          disabled={disabled}
+        />
+      </InputWrapper>
+
+      {!showResults && (
+        <NoResults>
+          <Empty />
+          <code>No Results...</code>
+        </NoResults>
       )}
-    </>
+
+      {showResults && (
+        <TracksList tracks={filteredTracks} onTrackSelect={onTrackSelect} />
+      )}
+    </StyledTracksSearch>
   );
 }
