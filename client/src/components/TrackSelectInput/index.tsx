@@ -48,7 +48,7 @@ export default function TrackSelectInput({ onChange }: _props) {
   return (
     <StyledTrackSelectInput>
       <div>
-        <code>Tracks: {selectedTracks?.length}/3</code>
+        <code>Tracks: {selectedTracks?.length ?? 0}/3</code>
         <TracksSearch
           onTrackSelect={handleAddtrack}
           disabled={searchIsDisabled}

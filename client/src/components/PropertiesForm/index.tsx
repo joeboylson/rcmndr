@@ -29,10 +29,7 @@ export default function PropertiesForm() {
   return (
     <StyledPropertiesForm>
       <StepWrapper>
-        <div>
-          <h1>Step 1. Search & Select Tracks</h1>
-          <code>Example: "never gonna give you up rick astley"</code>
-        </div>
+        <h1>Step 1. Search & Select Tracks</h1>
         <TrackSelectInput onChange={setSelectedTracks} />
       </StepWrapper>
       <button>Next</button>

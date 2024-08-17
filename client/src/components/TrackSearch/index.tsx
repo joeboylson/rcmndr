@@ -93,6 +93,7 @@ export default function TracksSearch({
           type="text"
           onChange={(e) => setTrackQ(e.target.value)}
           disabled={disabled}
+          placeholder={`"man in black johnny cash"`}
         />
       </InputWrapper>
 
