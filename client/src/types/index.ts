@@ -1,3 +1,4 @@
+export * from "./propertyData";
 export * from "./propertyInput";
 
 export interface WithChildren {

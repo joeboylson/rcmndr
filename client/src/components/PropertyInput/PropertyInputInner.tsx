@@ -1,5 +1,5 @@
 import { compact } from "lodash";
-import { ParentBounds } from "../../types";
+import { ParentBounds, PropertyData } from "../../types";
 import MinMaxInput from "../MinMaxInput";
 import {
   InnerResetButton,
@@ -14,7 +14,6 @@ import {
 } from "./styledComponents";
 import { useToggle } from "../../hooks/useToggle";
 import { useEffect, MouseEvent } from "react";
-import { PropertyData } from "../PropertiesGrid";
 import { ArrowCounterClockwise } from "@phosphor-icons/react";
 
 interface _props {

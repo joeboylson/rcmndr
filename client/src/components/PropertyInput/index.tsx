@@ -7,11 +7,10 @@ import {
   StyledPropertyInput,
 } from "./styledComponents";
 import { compact } from "lodash";
-import { ParentBounds } from "../../types";
+import { ParentBounds, PropertyData } from "../../types";
 import { Portal } from "@mui/material";
 import { useToggle } from "../../hooks/useToggle";
 import PropertyInputInner from "./PropertyInputInner";
-import { PropertyData } from "../PropertiesGrid";
 import { ArrowCounterClockwise } from "@phosphor-icons/react";
 
 interface _props {

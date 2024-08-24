@@ -1,33 +1,22 @@
 import styled from "styled-components";
 import PropertyInput from "../PropertyInput";
 import { useMemo, useState } from "react";
+import { PropertyData } from "../../types";
+import { PropertyDataKeys } from "../../enums";
 
-export interface PropertyData {
-  key: string;
-  value: [number, number];
-  active: boolean;
-  description: string;
-}
+console.log(Object.values(PropertyDataKeys));
 
-// TODO
-const tempProperties = [
-  "acousticness",
-  "danceability",
-  "energy",
-  "instrumentalness",
-  "liveness",
-  "speechiness",
-  "valence",
-];
-const defaultPropertyData: PropertyData[] = tempProperties.map((key) => {
-  return {
-    key,
-    value: [20, 80],
-    active: false,
-    description:
-      "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.",
-  };
-});
+const defaultPropertyData: PropertyData[] = Object.values(PropertyDataKeys).map(
+  (key) => {
+    return {
+      key,
+      value: [20, 80],
+      active: false,
+      description:
+        "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.",
+    };
+  }
+);
 
 const gapSize = 12;
 const gridItemSize = (597 - gapSize * 2) / 3;
