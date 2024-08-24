@@ -14,7 +14,7 @@ export async function searchTracks(accessToken: string, q: string) {
     const headers = { Authorization: authString };
 
     const itemType: ItemTypes = "track";
-    const params = serialize({ q, type: [itemType], limit: 6 });
+    const params = serialize({ q, type: [itemType], limit: 5 });
 
     const url = `https://api.spotify.com/v1/search?${params}`;
 

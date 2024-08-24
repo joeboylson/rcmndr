@@ -4,10 +4,10 @@ import { Track } from "@spotify/web-api-ts-sdk";
 import styled from "styled-components";
 import PropertiesGrid from "../PropertiesGrid";
 import { PropertyData } from "../../types";
-import { PropertyDataKey } from "../../enums";
 import { getRecommendations } from "../../utils";
 import { Playlist } from "@phosphor-icons/react";
 import RecommendationsResults from "../RecommendationsResults";
+import { getDefaultPropertyData } from "../../utils";
 
 const StyledPropertiesForm = styled("div")`
   width: 100%;
@@ -52,24 +52,14 @@ const StepNavButton = styled("button")`
   }
 `;
 
-const defaultPropertyData: PropertyData[] = Object.values(PropertyDataKey).map(
-  (key) => {
-    return {
-      key,
-      value: [20, 80],
-      active: false,
-      // TODO
-      description:
-        "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.",
-    };
-  }
-);
+// generate default property data
+const _propertyData = getDefaultPropertyData();
 
 export default function PropertiesForm() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedTracks, setSelectedTracks] = useState<Track[]>();
   const [propertyData, setPropertyData] =
-    useState<PropertyData[]>(defaultPropertyData);
+    useState<PropertyData[]>(_propertyData);
 
   const goToStepOne = useCallback(() => {
     setStep(1);
@@ -88,17 +78,32 @@ export default function PropertiesForm() {
   return (
     <StyledPropertiesForm>
       <div>
-        <code>L: {selectedTracks?.length ?? 0}</code>
         {step === 1 && (
           <StepWrapper>
-            <h1>Step 1. Search & Select Tracks</h1>
-            <TrackSelectInput onChange={setSelectedTracks} />
+            <h1>Step 1. Song Search</h1>
+            <p>
+              Search for a song you love by typing its name into the search bar.
+              Select your song from the list of results, and the algorithm will
+              use this song to find other tracks that are similar. Easily
+              discover new music that matches your taste!
+            </p>
+
+            <TrackSelectInput
+              selectedTracks={selectedTracks}
+              setSelectedTracks={setSelectedTracks}
+            />
           </StepWrapper>
         )}
 
         {step === 2 && (
           <StepWrapper>
-            <h1>Step 2. Define Search Parameters</h1>
+            <h1>Step 2. Fine-Tune Search</h1>
+            <p>
+              You can fine-tune up to 3 search properties. Clicking into a
+              property will activate it; to deactivate, use the reset button in
+              the top corner of each property. Once you're satisfied, proceed to
+              the next step to view the refined search results.
+            </p>
             <PropertiesGrid
               propertyData={propertyData}
               setPropertyData={setPropertyData}

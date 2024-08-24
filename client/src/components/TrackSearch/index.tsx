@@ -100,12 +100,18 @@ export default function TracksSearch({
          */}
       </InputWrapper>
 
-      {!showResults && (
-        <NoResults>
-          <Empty />
-          <code>No Results...</code>
-        </NoResults>
-      )}
+      {!showResults ||
+        (isEmpty(tracks) && (
+          <NoResults>
+            <Empty />
+
+            {filterTracks?.length === 3 ? (
+              <code>Maximum number of tracks selected</code>
+            ) : (
+              <code>No tracks matched your search</code>
+            )}
+          </NoResults>
+        ))}
 
       {showResults && (
         <TracksList

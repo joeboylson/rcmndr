@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Track } from "@spotify/web-api-ts-sdk";
 import TracksSearch from "../../components/TrackSearch";
 import styled from "styled-components";
@@ -8,7 +15,7 @@ const StyledTrackSelectInput = styled("div")`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 24px;
   align-content: start;
 `;
 
@@ -16,20 +23,21 @@ const SelectedTracksWrapper = styled("div")`
   background-color: rgba(255, 255, 255, 0.1);
   padding: 24px;
   border-radius: 8px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
 `;
 
 interface _props {
-  onChange: (tracks: Track[]) => void;
+  selectedTracks: Track[] | undefined;
+  setSelectedTracks: Dispatch<SetStateAction<Track[] | undefined>>;
 }
 
-export default function TrackSelectInput({ onChange }: _props) {
-  const [selectedTracks, setSelectedTracks] = useState<Track[]>();
-
-  useEffect(() => {
-    if (!selectedTracks) return;
-    onChange(selectedTracks);
-  }, [selectedTracks, onChange]);
-
+export default function TrackSelectInput({
+  selectedTracks,
+  setSelectedTracks,
+}: _props) {
   const handleAddtrack = useCallback((track: Track) => {
     setSelectedTracks((_tracks) => [...(_tracks ?? []), track]);
   }, []);
