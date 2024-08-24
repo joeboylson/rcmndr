@@ -14,7 +14,7 @@ export async function searchTracks(accessToken: string, q: string) {
     const headers = { Authorization: authString };
 
     const itemType: ItemTypes = "track";
-    const params = serialize({ q, type: [itemType] });
+    const params = serialize({ q, type: [itemType], limit: 6 });
 
     const url = `https://api.spotify.com/v1/search?${params}`;
 
@@ -38,9 +38,6 @@ export async function getRecommendations(
     const headers = { Authorization: authString };
 
     const params = serialize(recommendationsRequest);
-
-    console.log({ params });
-
     const url = `https://api.spotify.com/v1/recommendations?${params}`;
 
     const response = await axios.get(url, { headers });

@@ -108,7 +108,11 @@ export default function TracksSearch({
       )}
 
       {showResults && (
-        <TracksList tracks={filteredTracks} onTrackSelect={onTrackSelect} />
+        <TracksList
+          tracks={filteredTracks}
+          onTrackSelect={onTrackSelect}
+          simple
+        />
       )}
     </StyledTracksSearch>
   );

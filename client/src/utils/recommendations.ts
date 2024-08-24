@@ -10,9 +10,6 @@ export async function getRecommendations(
   propertyData: PropertyData[],
   tracks: Track[]
 ) {
-  console.log("getRecommendations");
-  console.log(propertyData);
-
   /**
    * SEED TRACKS MUST BE ARRAY OF IDS
    */

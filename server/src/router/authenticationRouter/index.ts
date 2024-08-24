@@ -7,7 +7,10 @@ import {
   getSpotifyAccessToken,
   calculateExpiration,
   getSpotifyProfile,
+  isProduction,
+  tryDeleteSessionFile,
 } from "../../utils";
+import path from "path";
 
 export const authenticationRouter = express.Router();
 
@@ -19,7 +22,7 @@ authenticationRouter.get(
       const s = request.session;
 
       const isAuthenticated = s.isAuthenticated;
-      const rightNowInMs = new Date().getMilliseconds();
+      const rightNowInMs = Date.now();
       const isExpired = rightNowInMs > (s.expirationDateInMs ?? 0);
 
       if (!isAuthenticated || isExpired) {
@@ -27,6 +30,12 @@ authenticationRouter.get(
           authenticated: false,
           user: null,
         };
+
+        if (!isProduction()) {
+          request.sessionStore.clear();
+          const _filename = path.join(__dirname, "../__session.json");
+          tryDeleteSessionFile(_filename);
+        }
 
         return response.status(200).send(isNotAuthenticated);
       }
@@ -41,7 +50,6 @@ authenticationRouter.get(
 
 authenticationRouter.get(
   "/get-spotify-auth-url",
-  alreadyAuthorizedMiddleware,
   function (_request, response) {
     response.send(generateSpotifyAuthUrl());
   }

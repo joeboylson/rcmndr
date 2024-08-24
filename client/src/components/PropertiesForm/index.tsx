@@ -87,35 +87,38 @@ export default function PropertiesForm() {
 
   return (
     <StyledPropertiesForm>
-      {step === 1 && (
-        <StepWrapper>
-          <h1>Step 1. Search & Select Tracks</h1>
-          <TrackSelectInput onChange={setSelectedTracks} />
-        </StepWrapper>
-      )}
+      <div>
+        <code>L: {selectedTracks?.length ?? 0}</code>
+        {step === 1 && (
+          <StepWrapper>
+            <h1>Step 1. Search & Select Tracks</h1>
+            <TrackSelectInput onChange={setSelectedTracks} />
+          </StepWrapper>
+        )}
 
-      {step === 2 && (
-        <StepWrapper>
-          <h1>Step 2. Define Search Parameters</h1>
-          <PropertiesGrid
-            propertyData={propertyData}
-            setPropertyData={setPropertyData}
-          />
-        </StepWrapper>
-      )}
-
-      {step === 3 && (
-        <StepWrapper>
-          <h1>Step 3. Results</h1>
-
-          {selectedTracks && (
-            <RecommendationsResults
+        {step === 2 && (
+          <StepWrapper>
+            <h1>Step 2. Define Search Parameters</h1>
+            <PropertiesGrid
               propertyData={propertyData}
-              tracks={selectedTracks}
+              setPropertyData={setPropertyData}
             />
-          )}
-        </StepWrapper>
-      )}
+          </StepWrapper>
+        )}
+
+        {step === 3 && (
+          <StepWrapper>
+            <h1>Step 3. Results</h1>
+
+            {selectedTracks && (
+              <RecommendationsResults
+                propertyData={propertyData}
+                tracks={selectedTracks}
+              />
+            )}
+          </StepWrapper>
+        )}
+      </div>
 
       <StepNavWrapper>
         <StepNavButton

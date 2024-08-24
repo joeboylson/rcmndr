@@ -58,7 +58,11 @@ export default function TrackSelectInput({ onChange }: _props) {
 
       <SelectedTracksWrapper>
         <h2>Selected tracks:</h2>
-        <TracksList tracks={selectedTracks} onTrackSelect={handleRemoveTrack} />
+        <TracksList
+          tracks={selectedTracks}
+          onTrackSelect={handleRemoveTrack}
+          simple
+        />
       </SelectedTracksWrapper>
     </StyledTrackSelectInput>
   );

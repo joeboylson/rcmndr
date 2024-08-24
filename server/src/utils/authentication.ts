@@ -44,6 +44,12 @@ export function tryReadSessionFile(filename: string) {
   }
 }
 
+export function tryDeleteSessionFile(filename: string) {
+  try {
+    fs.unlinkSync(filename);
+  } catch (_) {}
+}
+
 export function devSessionMiddleware(
   request: Request,
   _: unknown,
@@ -118,7 +124,7 @@ export function serialize(obj: Record<string, any>) {
 }
 
 export function calculateExpiration(tokenExpiresIn: number) {
-  const rightNowInMs = new Date().getMilliseconds();
+  const rightNowInMs = Date.now();
 
   /**
    * Multiple by 0.95 to provide a bit of time overlap
