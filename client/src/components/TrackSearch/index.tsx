@@ -95,6 +95,9 @@ export default function TracksSearch({
           disabled={disabled}
           placeholder={`"man in black johnny cash"`}
         />
+        {/**
+         * TODO: add a cool animation that types in popular song names into the search bar
+         */}
       </InputWrapper>
 
       {!showResults && (

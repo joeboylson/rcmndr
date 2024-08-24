@@ -1,3 +1,5 @@
+export * from "./propertyInput";
+
 export interface WithChildren {
   children: React.ReactNode;
 }

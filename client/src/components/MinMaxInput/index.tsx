@@ -1,64 +1,59 @@
-import { useCallback, useMemo, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useMemo, useState } from "react";
+import { ParentBounds } from "../../types";
+import { sortBy } from "lodash";
+import {
+  MinMaxRangeInput,
+  MinMaxWrapper,
+  StyledMinMaxInput,
+} from "./StyledComponents";
 
-const StyledMinMaxInput = styled("div")`
-  width: 100%;
-  min-width: 300px;
-  display: grid;
-  align-items: center;
-  gap: 24px;
-  grid-template-columns: 1fr 128px;
-`;
+interface _props {
+  parentBounds: ParentBounds;
+  onChange: (value: [number, number]) => void;
+  value: [number, number];
+}
 
-const MinMaxWrapper = styled("div")`
-  position: relative;
-  height: 16px;
-`;
+export default function MinMaxInput({ parentBounds, onChange, value }: _props) {
+  const inputProps = {
+    $parentBounds: parentBounds,
+    type: "range",
+    min: 5,
+    max: 95,
+  };
 
-const MinMaxRangeInput = styled("input")`
-  position: absolute;
-  -webkit-appearance: none;
-  width: 100%;
-  height: 0;
-  appearance: none;
+  const [r1, setR1] = useState<number>(value[0]);
+  const [r2, setR2] = useState<number>(value[1]);
 
-  /* For Chrome, Safari, Opera, and Edge  */
-  &::-webkit-slider-runnable-track {
-    background: transparent;
-    height: 0;
-  }
+  const handleSetR1 = (_r1: string) => setR1(Number(_r1));
+  const handleSetR2 = (_r2: string) => setR2(Number(_r2));
 
-  /* For Firefox */
-  &::-moz-range-track {
-    background: transparent;
-    height: 0;
-  }
+  const values = useMemo(() => sortBy([r1, r2], (i) => i), [r1, r2]);
 
-  &::after {
-    pointer-events: none;
-    top: 7px;
-    left: 0;
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 2px;
-    background-color: black;
-  }
-`;
+  useEffect(() => {
+    onChange([values[0], values[1]]);
+  }, [values]);
 
-const inputProps = { type: "range" };
+  const y = useMemo(() => {
+    const [_min, _max] = values;
+    const maxAsPercentage = _max / 100;
+    const maxAsValue = parentBounds.height * maxAsPercentage;
+    return Math.round(parentBounds.height - maxAsValue);
+  }, [values]);
 
-export default function MinMaxInput() {
-  const [r1, setR1] = useState<number>(20);
-  const [r2, setR2] = useState<number>(80);
+  const height = useMemo(() => {
+    const [_min, _max] = values;
+    const minMaxRange = Math.abs(_min - _max);
+    const minMaxRangePercentage = minMaxRange / 100;
+    return Math.round(parentBounds.height * minMaxRangePercentage);
+  }, [values]);
 
-  const handleSetR1 = useCallback((_r1: string) => setR1(Number(_r1)), [setR1]);
-  const handleSetR2 = useCallback((_r2: string) => setR2(Number(_r2)), [setR2]);
-
-  const values = useMemo(() => [r1, r2].sort(), [r1, r2]);
+  const rxy = useMemo(() => {
+    if (height > 8) return 8;
+    return height;
+  }, [height]);
 
   return (
-    <StyledMinMaxInput>
+    <StyledMinMaxInput $parentBounds={parentBounds}>
       <MinMaxWrapper>
         <MinMaxRangeInput
           {...inputProps}
@@ -71,7 +66,40 @@ export default function MinMaxInput() {
           defaultValue={r2}
         />
       </MinMaxWrapper>
-      <p>{JSON.stringify(values)}</p>
+
+      <svg
+        width={parentBounds.width}
+        height={parentBounds.height}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          width={parentBounds.width - 50}
+          height={height}
+          x={0}
+          y={y}
+          rx={rxy}
+          ry={rxy}
+          fill="rgba(213, 150, 255, 1)"
+        />
+        Sorry, your browser does not support inline SVG.
+      </svg>
+
+      <svg
+        width={parentBounds.width}
+        height={parentBounds.height}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          width={parentBounds.width - 50}
+          height={parentBounds.height}
+          x={0}
+          y={0}
+          rx={rxy}
+          ry={rxy}
+          fill="rgba(255, 255, 255, 0.1)"
+        />
+        Sorry, your browser does not support inline SVG.
+      </svg>
     </StyledMinMaxInput>
   );
 }
