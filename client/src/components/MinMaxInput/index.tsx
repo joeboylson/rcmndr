@@ -81,6 +81,30 @@ export default function MinMaxInput({ parentBounds, onChange, value }: _props) {
           ry={rxy}
           fill="rgba(213, 150, 255, 1)"
         />
+        <text x={4} y={y + 16} style={{ fontFamily: "Elios", fill: "white" }}>
+          Max
+        </text>
+        <line
+          x1={6}
+          x2={parentBounds.width - 45}
+          y1={y + 1}
+          y2={y + 1}
+          stroke="white"
+        />
+        <text
+          x={36}
+          y={height + y - 4}
+          style={{ fontFamily: "Elios", fill: "white" }}
+        >
+          Min
+        </text>
+        <line
+          x1={36}
+          x2={parentBounds.width - 45}
+          y1={height + y}
+          y2={height + y}
+          stroke="white"
+        />
         Sorry, your browser does not support inline SVG.
       </svg>
 

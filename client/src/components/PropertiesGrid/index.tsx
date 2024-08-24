@@ -1,22 +1,8 @@
 import styled from "styled-components";
 import PropertyInput from "../PropertyInput";
-import { useMemo, useState } from "react";
+import { useMemo, useState, Dispatch, SetStateAction } from "react";
 import { PropertyData } from "../../types";
-import { PropertyDataKeys } from "../../enums";
-
-console.log(Object.values(PropertyDataKeys));
-
-const defaultPropertyData: PropertyData[] = Object.values(PropertyDataKeys).map(
-  (key) => {
-    return {
-      key,
-      value: [20, 80],
-      active: false,
-      description:
-        "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.",
-    };
-  }
-);
+import { PropertyDataKey } from "../../enums";
 
 const gapSize = 12;
 const gridItemSize = (597 - gapSize * 2) / 3;
@@ -28,12 +14,19 @@ const StyledPropertiesGrid = styled("div")`
   gap: ${gapSize}px;
 `;
 
-export default function PropertiesGrid() {
+interface _props {
+  propertyData: PropertyData[];
+  setPropertyData: Dispatch<SetStateAction<PropertyData[]>>;
+}
+
+export default function PropertiesGrid({
+  propertyData,
+  setPropertyData,
+}: _props) {
   const [openProperty, setOpenProperty] = useState<string>();
-  const [data, setData] = useState<PropertyData[]>(defaultPropertyData);
 
   const onChange = (key: string, propertyData: PropertyData) => {
-    setData((_data) => {
+    setPropertyData((_data) => {
       return _data.map((i) => {
         if (i.key === key) return propertyData;
         return i;
@@ -41,7 +34,10 @@ export default function PropertiesGrid() {
     });
   };
 
-  const activeProperties = useMemo(() => data.filter((i) => i.active), [data]);
+  const activeProperties = useMemo(
+    () => propertyData.filter((i) => i.active),
+    [propertyData]
+  );
 
   const maxPropertiesAchieved = useMemo(
     () => activeProperties.length >= 3,
@@ -52,7 +48,7 @@ export default function PropertiesGrid() {
     <>
       <code>Properties Selected: {activeProperties.length ?? 0}/3</code>
       <StyledPropertiesGrid>
-        {data.map((i) => {
+        {propertyData.map((i) => {
           const _onChange = (_pd: PropertyData) => onChange(i.key, _pd);
           const _disabled = !i.active && maxPropertiesAchieved;
           const _hidden = !!openProperty && openProperty !== i.key;
@@ -70,8 +66,6 @@ export default function PropertiesGrid() {
             />
           );
         })}
-
-        <code>{JSON.stringify(data)}</code>
       </StyledPropertiesGrid>
     </>
   );

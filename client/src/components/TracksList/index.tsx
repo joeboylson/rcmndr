@@ -5,6 +5,11 @@ const StyledTracksList = styled("div")`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+
+  &.simple {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const TrackButton = styled("button")`
@@ -28,11 +33,12 @@ const ButtonSmallText = styled("code")`
 interface _props {
   tracks?: Track[];
   onTrackSelect: (track: Track) => void;
+  simple?: true;
 }
 
-export default function TracksList({ tracks, onTrackSelect }: _props) {
+export default function TracksList({ tracks, onTrackSelect, simple }: _props) {
   return (
-    <StyledTracksList>
+    <StyledTracksList className={simple ? "simple" : ""}>
       {tracks?.map((track) => {
         const _onClick = () => onTrackSelect(track);
 

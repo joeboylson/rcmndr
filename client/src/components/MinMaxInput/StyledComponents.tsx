@@ -59,4 +59,8 @@ export const SVGRangeDisplay = styled("svg")`
   top: 0;
   left: 0;
   pointer-events: none;
+
+  .small {
+    font-family: Elios !important;
+  }
 `;

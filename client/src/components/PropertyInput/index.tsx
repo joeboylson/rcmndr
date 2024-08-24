@@ -12,6 +12,7 @@ import { Portal } from "@mui/material";
 import { useToggle } from "../../hooks/useToggle";
 import PropertyInputInner from "./PropertyInputInner";
 import { ArrowCounterClockwise } from "@phosphor-icons/react";
+import PropertyDataDisplay from "../PropertyDataDisplay";
 
 interface _props {
   onChange: (value: PropertyData) => void;
@@ -111,13 +112,9 @@ export default function PropertyInput({
             <InputOpenButtonDisplay
               className={elementClasses}
               $parentBounds={parentBounds}
+              data-id="InputOpenButtonDisplay"
             >
-              <p>{propertyData.key}</p>
-
-              <p>
-                Value: {propertyData.value[0]}, {propertyData.value[1]}
-              </p>
-
+              <PropertyDataDisplay propertyData={propertyData} />
               <button onClick={handleClearValue}>
                 <ArrowCounterClockwise />
               </button>

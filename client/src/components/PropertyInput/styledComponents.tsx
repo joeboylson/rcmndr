@@ -69,6 +69,7 @@ export const InputOpenButton = styled("div")<WithParentBounds>`
   height: ${({ $parentBounds }) => $parentBounds?.height}px;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
   overflow: hidden;
   z-index: 1;
   border-radius: 8px;
@@ -88,10 +89,11 @@ export const InputOpenButton = styled("div")<WithParentBounds>`
   &.is-absolute {
     background-color: transparent;
     border: 1px solid transparent;
+    backdrop-filter: none;
   }
 
   &.is-disabled {
-    backdrop-filter: grayscale(100%);
+    backdrop-filter: blur(8px) grayscale(100%);
     border: 1px solid transparent;
     cursor: not-allowed;
   }
@@ -104,6 +106,9 @@ export const InputOpenButtonDisplay = styled("div")<WithParentBounds>`
   transition: all 100ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   padding: 12px;
+
+  display: grid;
+  place-items: center;
 
   &.is-absolute {
     transform: translateY(-12px);
@@ -173,16 +178,6 @@ export const InputInnerBottom = styled("div")`
   display: grid;
   grid-template-columns: 24px 1fr;
   gap: 24px;
-`;
-
-export const InnerTitleText = styled("h1")`
-  text-transform: capitalize;
-  text-align: center;
-`;
-
-export const InnerTitleValue = styled("h2")`
-  text-transform: capitalize;
-  text-align: center;
 `;
 
 export const InnerResetButton = styled("button")`

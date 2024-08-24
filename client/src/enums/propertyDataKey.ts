@@ -1,4 +1,4 @@
-export enum PropertyDataKeys {
+export enum PropertyDataKey {
   ACOUSTICNESS = "acousticness",
   DANCEABILITY = "danceability",
   ENERGY = "energy",

@@ -28,7 +28,7 @@ export default function TrackSelectInput({ onChange }: _props) {
   useEffect(() => {
     if (!selectedTracks) return;
     onChange(selectedTracks);
-  }, []);
+  }, [selectedTracks, onChange]);
 
   const handleAddtrack = useCallback((track: Track) => {
     setSelectedTracks((_tracks) => [...(_tracks ?? []), track]);

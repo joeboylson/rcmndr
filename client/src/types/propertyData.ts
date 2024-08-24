@@ -1,5 +1,7 @@
+import { PropertyDataKey } from "../enums";
+
 export interface PropertyData {
-  key: string;
+  key: PropertyDataKey;
   value: [number, number];
   active: boolean;
   description: string;

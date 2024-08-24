@@ -1,2 +1,2 @@
-export * from "./propertyDataKeys";
+export * from "./propertyDataKey";
 export * from "./routes";

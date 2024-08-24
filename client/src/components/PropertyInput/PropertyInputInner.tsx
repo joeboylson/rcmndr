@@ -4,8 +4,6 @@ import MinMaxInput from "../MinMaxInput";
 import {
   InnerResetButton,
   InnerSaveButton,
-  InnerTitleText,
-  InnerTitleValue,
   InputInnerBottom,
   InputInnerTop,
   MinMaxInputWrapper,
@@ -15,6 +13,7 @@ import {
 import { useToggle } from "../../hooks/useToggle";
 import { useEffect, MouseEvent } from "react";
 import { ArrowCounterClockwise } from "@phosphor-icons/react";
+import PropertyDataDisplay from "../PropertyDataDisplay";
 
 interface _props {
   isOpen: boolean;
@@ -59,9 +58,7 @@ export default function PropertyInputInner({
       </MinMaxInputWrapper>
 
       <InputInnerTop className={elementClasses}>
-        <InnerTitleText>{propertyData.key}:</InnerTitleText>
-        <InnerTitleValue>Max: {propertyData.value[1]}</InnerTitleValue>
-        <InnerTitleValue>Min: {propertyData.value[0]}</InnerTitleValue>
+        <PropertyDataDisplay propertyData={propertyData} />
       </InputInnerTop>
 
       <InputInnerBottom className={elementClasses}>
