@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PropertyInput from "../PropertyInput";
 import { useMemo, useState, Dispatch, SetStateAction } from "react";
 import { PropertyData } from "../../types";
-import { PropertyDataKey } from "../../enums";
 
 const gapSize = 12;
 const gridItemSize = (597 - gapSize * 2) / 3;
@@ -12,6 +11,22 @@ const StyledPropertiesGrid = styled("div")`
   grid-template-columns: repeat(3, ${gridItemSize}px);
   grid-template-rows: repeat(3, ${gridItemSize}px);
   gap: ${gapSize}px;
+  width: min-content;
+  margin: 0 auto;
+
+  @media (max-width: 740px) {
+    grid-template-columns: repeat(2, ${gridItemSize}px);
+    grid-template-rows: repeat(4, ${gridItemSize}px);
+  }
+
+  @media (max-width: 424px) {
+    grid-template-columns: repeat(1, ${gridItemSize}px);
+    grid-template-rows: repeat(8, ${gridItemSize}px);
+  }
+`;
+
+const NumberOfPropertiesLabel = styled("code")`
+  text-align: center;
 `;
 
 interface _props {
@@ -46,7 +61,9 @@ export default function PropertiesGrid({
 
   return (
     <>
-      <code>Properties Selected: {activeProperties.length ?? 0}/3</code>
+      <NumberOfPropertiesLabel>
+        Properties Selected: {activeProperties.length ?? 0}/3
+      </NumberOfPropertiesLabel>
       <StyledPropertiesGrid>
         {propertyData.map((i) => {
           const _onChange = (_pd: PropertyData) => onChange(i.key, _pd);

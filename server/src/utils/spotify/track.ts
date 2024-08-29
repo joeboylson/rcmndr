@@ -36,7 +36,6 @@ export async function getRecommendations(
   try {
     const authString = `Bearer ${accessToken}`;
     const headers = { Authorization: authString };
-
     const params = serialize(recommendationsRequest);
     const url = `https://api.spotify.com/v1/recommendations?${params}`;
 

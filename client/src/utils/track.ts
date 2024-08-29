@@ -7,6 +7,12 @@ export function getDefaultPropertyData() {
 
   return Object.values(PropertyDataKey).map((key) => {
     const description = propertyDescriptions[key] as string;
-    return { key, value, active, description };
+
+    const valueModifier = ([a, b]: [number, number]) => {
+      if (key === PropertyDataKey.POPULARITY) return [a, b] as [number, number];
+      return [a / 100, b / 100] as [number, number];
+    };
+
+    return { key, value, active, description, valueModifier };
   });
 }

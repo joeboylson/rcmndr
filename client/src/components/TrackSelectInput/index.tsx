@@ -1,15 +1,9 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import { Track } from "@spotify/web-api-ts-sdk";
 import TracksSearch from "../../components/TrackSearch";
 import styled from "styled-components";
 import TracksList from "../TracksList";
+import { Minus } from "@phosphor-icons/react";
 
 const StyledTrackSelectInput = styled("div")`
   width: 100%;
@@ -20,6 +14,7 @@ const StyledTrackSelectInput = styled("div")`
 `;
 
 const SelectedTracksWrapper = styled("div")`
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 24px;
   border-radius: 8px;
@@ -27,6 +22,14 @@ const SelectedTracksWrapper = styled("div")`
   display: grid;
   grid-template-columns: 1fr;
   gap: 4px;
+
+  @media (max-width: 600px) {
+    padding: 12px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 8px;
+  }
 `;
 
 interface _props {
@@ -69,7 +72,7 @@ export default function TrackSelectInput({
         <TracksList
           tracks={selectedTracks}
           onTrackSelect={handleRemoveTrack}
-          simple
+          icon={<Minus />}
         />
       </SelectedTracksWrapper>
     </StyledTrackSelectInput>

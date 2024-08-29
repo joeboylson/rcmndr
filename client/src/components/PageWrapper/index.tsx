@@ -7,10 +7,18 @@ const StyledPageWrapper = styled("div")`
   background-color: transparent;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 48px;
+  padding: 0 48px;
 
   * {
     color: white;
+  }
+
+  @media (max-width: 600px) {
+    padding: 24px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 12px;
   }
 `;
 

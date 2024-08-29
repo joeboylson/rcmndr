@@ -1,6 +1,6 @@
 import { RecommendationsResponse, Track } from "@spotify/web-api-ts-sdk";
 import { PropertyData } from "../../types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { getRecommendations } from "../../utils";
 import TracksList from "../TracksList";
 import {
@@ -8,16 +8,21 @@ import {
   SearchButton,
   StyledRecommendationsResults,
 } from "./StyledComponents";
+import SaveTracksToPlayListForm from "../SaveTracksToPlayListForm";
 
 interface _props {
   propertyData: PropertyData[];
   tracks: Track[];
+  handleReset: () => void;
 }
 
 export default function RecommendationsResults({
   propertyData,
   tracks,
+  handleReset,
 }: _props) {
+  console.log(tracks);
+
   const [results, setResults] = useState<RecommendationsResponse>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -36,7 +41,12 @@ export default function RecommendationsResults({
         setLoading(false);
       }
     );
-  }, [results, loading]);
+  }, [results, loading, propertyData, tracks]);
+
+  const saveTracks = useMemo(
+    () => [...tracks, ...(results?.tracks ?? [])],
+    [tracks, results]
+  );
 
   if (loading) return <p>loading...</p>;
 
@@ -77,8 +87,8 @@ export default function RecommendationsResults({
 
   return (
     <StyledRecommendationsResults>
-      <code>Check out these tracks!</code>
-      <TracksList tracks={results?.tracks} onTrackSelect={() => {}} simple />
+      <SaveTracksToPlayListForm tracks={saveTracks} handleReset={handleReset} />
+      <TracksList tracks={saveTracks} onTrackSelect={() => {}} />
     </StyledRecommendationsResults>
   );
 }

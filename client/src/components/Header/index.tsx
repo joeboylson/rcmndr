@@ -35,7 +35,7 @@ export default function Header() {
 
   return (
     <StyledHeader>
-      <code>Hey there, {authenticatedUser?.user.display_name}</code>
+      <code>RCMNDR | Hey there, {authenticatedUser?.user.display_name}</code>
       <MinimalButton onClick={handleLogout}>
         <SignOut size={18} />
       </MinimalButton>

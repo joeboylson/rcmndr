@@ -5,4 +5,5 @@ export interface PropertyData {
   value: [number, number];
   active: boolean;
   description: string;
+  valueModifier: (_value: [number, number]) => [number, number];
 }

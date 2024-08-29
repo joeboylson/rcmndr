@@ -10,6 +10,7 @@ import {
   Empty,
   HourglassHigh,
   HourglassLow,
+  Plus,
 } from "@phosphor-icons/react";
 
 const StyledTracksSearch = styled("div")`
@@ -117,7 +118,7 @@ export default function TracksSearch({
         <TracksList
           tracks={filteredTracks}
           onTrackSelect={onTrackSelect}
-          simple
+          icon={<Plus />}
         />
       )}
     </StyledTracksSearch>

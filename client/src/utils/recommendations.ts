@@ -21,14 +21,14 @@ export async function getRecommendations(
     /**
      * Change min and max range from 0-100 to 0-1
      */
-    const [_min, _max] = i.value;
-    const min = _min / 100;
-    const max = _max / 100;
+    const [min, max] = i.valueModifier(i.value);
 
     const minKey = `min_${i.key}`;
     const maxKey = `max_${i.key}`;
     return { ...acc, [minKey]: min, [maxKey]: max };
   }, {});
+
+  console.log(minMaxPropertyData);
 
   const recommendationsRequestData: RecommendationsRequest = {
     limit: 30,

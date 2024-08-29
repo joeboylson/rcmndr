@@ -73,7 +73,7 @@ export const InputOpenButton = styled("div")<WithParentBounds>`
   overflow: hidden;
   z-index: 1;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
   transition: all 1000ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);

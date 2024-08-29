@@ -20,6 +20,7 @@ const StyledPropertiesForm = styled("div")`
 `;
 
 const StepWrapper = styled("div")`
+  width: 100%;
   height: calc(100vh - 96px - 64px);
   padding-bottom: 24px;
   display: grid;
@@ -30,6 +31,9 @@ const StepWrapper = styled("div")`
 `;
 
 const StepNavWrapper = styled("div")`
+  width: 100%;
+  border-top: 1px solid white;
+  padding-top: 12px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
@@ -75,9 +79,15 @@ export default function PropertiesForm() {
     setStep(3);
   }, [selectedTracks, propertyData]);
 
+  const handleReset = () => {
+    setStep(1);
+    setSelectedTracks(undefined);
+    setPropertyData(_propertyData);
+  };
+
   return (
     <StyledPropertiesForm>
-      <div>
+      <>
         {step === 1 && (
           <StepWrapper>
             <h1>Step 1. Song Search</h1>
@@ -119,11 +129,12 @@ export default function PropertiesForm() {
               <RecommendationsResults
                 propertyData={propertyData}
                 tracks={selectedTracks}
+                handleReset={handleReset}
               />
             )}
           </StepWrapper>
         )}
-      </div>
+      </>
 
       <StepNavWrapper>
         <StepNavButton
