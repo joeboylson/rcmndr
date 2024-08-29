@@ -1,6 +1,7 @@
 import { PropertyDataKey } from "../enums";
 
 export const propertyDescriptions = {
+  [PropertyDataKey.POPULARITY]: "",
   [PropertyDataKey.ACOUSTICNESS]:
     "A confidence measure from 0 to 100 of whether the track is acoustic. 100 represents high confidence the track is acoustic.",
   [PropertyDataKey.DANCEABILITY]:

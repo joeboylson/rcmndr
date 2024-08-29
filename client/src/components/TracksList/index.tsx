@@ -18,7 +18,6 @@ const TrackButton = styled("button")`
   outline: none;
   background-color: rgba(255, 255, 255, 0.1);
   text-align: left;
-  white-space: nowrap;
   padding: 8px 16px;
   border-radius: 64px;
   line-height: 12px;

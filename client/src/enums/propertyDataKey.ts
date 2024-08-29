@@ -1,4 +1,5 @@
 export enum PropertyDataKey {
+  POPULARITY = "popularity",
   ACOUSTICNESS = "acousticness",
   DANCEABILITY = "danceability",
   ENERGY = "energy",

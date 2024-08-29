@@ -77,7 +77,8 @@ export function devSessionMiddleware(
 
 export function generateSpotifyAuthUrl() {
   const state = random(1000, 1000 * 1000);
-  const scope = "user-read-private user-read-email";
+  const scope =
+    "user-read-private user-read-email playlist-modify-public playlist-modify-private";
 
   return (
     "https://accounts.spotify.com/authorize?" +

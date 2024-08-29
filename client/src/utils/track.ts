@@ -6,7 +6,7 @@ export function getDefaultPropertyData() {
   const active = false;
 
   return Object.values(PropertyDataKey).map((key) => {
-    const description = propertyDescriptions[key];
+    const description = propertyDescriptions[key] as string;
     return { key, value, active, description };
   });
 }
