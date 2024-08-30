@@ -18,9 +18,6 @@ const SERVER_PORT = process.env.SERVER_PORT;
 
 const sessionOptions: SessionOptions = {
   secret: process.env.SESSION_SECRET,
-  // cookie: { secure: isProduction() },
-  // resave: isProduction(),
-  // saveUninitialized: isProduction(),
 };
 
 app.use(express.json());

@@ -30,8 +30,9 @@ export function alreadyAuthorizedMiddleware(
   response: Response,
   next: NextFunction
 ) {
-  const _alreadyAuthenticated = !isEmpty(request.session.accessTokenData);
-  if (_alreadyAuthenticated) return response.redirect("/");
+  const _alreadyAuthenticated =
+    request.session?.isAuthenticated?.authenticated ?? false;
+  if (!_alreadyAuthenticated) return response.redirect("/");
   return next();
 }
 
