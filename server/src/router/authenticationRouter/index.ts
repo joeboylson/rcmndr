@@ -7,10 +7,7 @@ import {
   getSpotifyAccessToken,
   calculateExpiration,
   getSpotifyProfile,
-  isProduction,
-  tryDeleteSessionFile,
 } from "../../utils";
-import path from "path";
 
 export const authenticationRouter = express.Router();
 
@@ -26,22 +23,25 @@ authenticationRouter.get(
       const isExpired = rightNowInMs > (s.expirationDateInMs ?? 0);
 
       if (!isAuthenticated || isExpired) {
+        console.group("NOT AUTHENTICATED or IS EXPIRED");
+        console.log(s);
+        console.groupEnd();
+
         const isNotAuthenticated: IsAuthenticated = {
           authenticated: false,
           user: null,
         };
-
-        // if (!isProduction()) {
-        //   request.sessionStore.clear();
-        //   const _filename = path.join(__dirname, "../__session.json");
-        //   tryDeleteSessionFile(_filename);
-        // }
 
         return response.status(200).send(isNotAuthenticated);
       }
 
       return response.status(200).send(isAuthenticated);
     } catch (error) {
+      console.group("NOT AUTHENTICATED DUE TO ERROR");
+      console.log(error);
+      console.groupEnd();
+
+      console.log(error);
       const _response: IsAuthenticated = { authenticated: false, user: null };
       return response.status(200).send(_response);
     }
