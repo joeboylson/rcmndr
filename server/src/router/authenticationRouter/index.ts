@@ -84,9 +84,15 @@ authenticationRouter.get("/callback", async (request, response) => {
     console.log({ isAuthenticated });
 
     if (!isEmpty(accessTokenData)) {
+      console.log(">>> setting up session");
       request.session.accessTokenData = accessTokenData;
       request.session.expirationDateInMs = expirationDateInMs;
       request.session.isAuthenticated = isAuthenticated;
+
+      console.log(">>> saving session");
+      request.session.save();
+
+      console.log(">>> redirecting back to /");
       return response.redirect("/");
     }
 
