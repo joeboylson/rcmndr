@@ -31,11 +31,11 @@ authenticationRouter.get(
           user: null,
         };
 
-        if (!isProduction()) {
-          request.sessionStore.clear();
-          const _filename = path.join(__dirname, "../__session.json");
-          tryDeleteSessionFile(_filename);
-        }
+        // if (!isProduction()) {
+        //   request.sessionStore.clear();
+        //   const _filename = path.join(__dirname, "../__session.json");
+        //   tryDeleteSessionFile(_filename);
+        // }
 
         return response.status(200).send(isNotAuthenticated);
       }

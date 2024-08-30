@@ -28,10 +28,8 @@ export async function getRecommendations(
     return { ...acc, [minKey]: min, [maxKey]: max };
   }, {});
 
-  console.log(minMaxPropertyData);
-
   const recommendationsRequestData: RecommendationsRequest = {
-    limit: 30,
+    limit: 50,
     seed_tracks,
     ...minMaxPropertyData,
   };

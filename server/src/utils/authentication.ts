@@ -57,20 +57,20 @@ export function devSessionMiddleware(
 ) {
   if (isProduction()) return next();
 
-  const _store = request.sessionStore;
-  const _filename = path.join(__dirname, "../__session.json");
-  const sessionHasAuth = !!request.session.accessTokenData;
-  const existingSession = tryReadSessionFile(_filename);
+  // const _store = request.sessionStore;
+  // const _filename = path.join(__dirname, "../__session.json");
+  // const sessionHasAuth = !!request.session.accessTokenData;
+  // const existingSession = tryReadSessionFile(_filename);
 
-  // attempt read session from files
-  if (existingSession && !sessionHasAuth)
-    _store.createSession(request, existingSession);
+  // // attempt read session from files
+  // if (existingSession && !sessionHasAuth)
+  //   _store.createSession(request, existingSession);
 
-  // attempt to write session if authentication exists
-  if (sessionHasAuth) {
-    const data = JSON.stringify(request.session);
-    fs.writeFileSync(_filename, data);
-  }
+  // // attempt to write session if authentication exists
+  // if (sessionHasAuth) {
+  //   const data = JSON.stringify(request.session);
+  //   fs.writeFileSync(_filename, data);
+  // }
 
   return next();
 }
