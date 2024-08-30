@@ -18,18 +18,23 @@ authenticationRouter.get(
       const s = request.session;
 
       const isAuthenticated = s.isAuthenticated;
+      console.log({ isAuthenticated });
+
       const rightNowInMs = Date.now();
+      console.log({ rightNowInMs });
+
       const isExpired = rightNowInMs > (s.expirationDateInMs ?? 0);
+      console.log({ isExpired });
 
       if (!isAuthenticated || isExpired) {
-        console.group("NOT AUTHENTICATED or IS EXPIRED");
-        console.log(s.accessTokenData);
-        console.groupEnd();
+        console.log(">>> NOT AUTHENTICATED or IS EXPIRED");
 
         const isNotAuthenticated: IsAuthenticated = {
           authenticated: false,
           user: null,
         };
+
+        console.log({ isNotAuthenticated });
 
         return response.status(200).send(isNotAuthenticated);
       }
