@@ -21,8 +21,6 @@ export default function RecommendationsResults({
   tracks,
   handleReset,
 }: _props) {
-  console.log(tracks);
-
   const [results, setResults] = useState<RecommendationsResponse>();
   const [loading, setLoading] = useState<boolean>(false);
 

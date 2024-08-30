@@ -1,6 +1,5 @@
 {
-  "name": "Express React Boilerplate",
-  "short_name": "ERB",
-  "start_url": ".",
-  "TODO": "fix \"name\" and \"short_name\""
+  "name": "RCMNDR",
+  "short_name": "RCMNDR",
+  "start_url": "."
 }

@@ -18,23 +18,15 @@ authenticationRouter.get(
       const s = request.session;
 
       const isAuthenticated = s.isAuthenticated;
-      console.log({ isAuthenticated });
-
       const rightNowInMs = Date.now();
-      console.log({ rightNowInMs });
-
       const isExpired = rightNowInMs > (s.expirationDateInMs ?? 0);
-      console.log({ isExpired });
 
       if (!isAuthenticated || isExpired) {
-        console.log(">>> NOT AUTHENTICATED or IS EXPIRED");
-
+        console.info(">>> NOT AUTHENTICATED or IS EXPIRED");
         const isNotAuthenticated: IsAuthenticated = {
           authenticated: false,
           user: null,
         };
-
-        console.log({ isNotAuthenticated });
 
         return response.status(200).send(isNotAuthenticated);
       }
@@ -42,7 +34,7 @@ authenticationRouter.get(
       return response.status(200).send(isAuthenticated);
     } catch (error) {
       console.group("/is-authenticated");
-      console.log(error);
+      console.error(error);
       console.groupEnd();
 
       const _response: IsAuthenticated = { authenticated: false, user: null };
@@ -65,47 +57,34 @@ authenticationRouter.get("/callback", async (request, response) => {
 
   try {
     const accessTokenData = await getSpotifyAccessToken(code.toString());
-    console.log({ accessTokenData });
-
     /**
      * calculate expiration
      */
     const tokenSeconds = accessTokenData.expires_in;
-    console.log({ tokenSeconds });
-
     const expirationDateInMs = calculateExpiration(tokenSeconds);
-    console.log({ expirationDateInMs });
 
     /**
      * get profile
      */
     const user = await getSpotifyProfile(accessTokenData.access_token);
-    console.log({ user });
 
     const isAuthenticated: IsAuthenticated = {
       authenticated: true,
       user,
     };
-    console.log({ isAuthenticated });
 
     if (!isEmpty(accessTokenData)) {
-      console.log(">>> setting up session");
       request.session.accessTokenData = accessTokenData;
       request.session.expirationDateInMs = expirationDateInMs;
       request.session.isAuthenticated = isAuthenticated;
-
-      console.log(">>> saving session");
       request.session.save();
-
-      console.log(">>> redirecting back to /");
       return response.redirect("/");
     }
 
-    console.log(">>> access token is empty");
     return response.redirect("/auth/logout");
   } catch (error) {
     console.group("/callback");
-    console.log(error);
+    console.error(error);
     console.groupEnd();
     return response.redirect("/");
   }

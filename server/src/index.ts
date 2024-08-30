@@ -6,7 +6,6 @@ import {
   setStaticFolder,
   trackRouter,
 } from "./router";
-import { devSessionMiddleware, isProduction } from "./utils";
 
 /**
  * IMPORT TYPES SO ALL TYPE DECLARATIONS WILL APPLY
@@ -23,7 +22,6 @@ const sessionOptions: SessionOptions = {
 app.use(express.json());
 app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true }));
-app.use(devSessionMiddleware);
 
 app.use("/api/auth", authenticationRouter);
 app.use("/api/track", trackRouter);

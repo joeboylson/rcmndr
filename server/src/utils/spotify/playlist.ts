@@ -1,9 +1,5 @@
 import { CreatePlaylistData } from "@shared/types";
-import {
-  Playlist,
-  SimplifiedPlaylist,
-  SnapshotReference,
-} from "@spotify/web-api-ts-sdk";
+import { SimplifiedPlaylist, SnapshotReference } from "@spotify/web-api-ts-sdk";
 import axios from "axios";
 
 export async function createEmptyPlaylist(
@@ -14,17 +10,11 @@ export async function createEmptyPlaylist(
   try {
     const authString = `Bearer ${accessToken}`;
     const headers = { Authorization: authString };
-
     const body: CreatePlaylistData = { name: playlistName };
-
     const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
-
     const response = await axios.post(url, body, { headers });
-
-    console.log(response.data);
-    console.log(response.status);
-
     const playlist = response.data as SimplifiedPlaylist;
+
     if ([200, 201].includes(response.status)) return playlist;
     return null;
   } catch (error) {
