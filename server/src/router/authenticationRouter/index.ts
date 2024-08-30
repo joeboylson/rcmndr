@@ -3,7 +3,6 @@ import { isEmpty } from "lodash";
 import { IsAuthenticated } from "@shared/types";
 import {
   generateSpotifyAuthUrl,
-  alreadyAuthorizedMiddleware,
   getSpotifyAccessToken,
   calculateExpiration,
   getSpotifyProfile,
@@ -24,7 +23,7 @@ authenticationRouter.get(
 
       if (!isAuthenticated || isExpired) {
         console.group("NOT AUTHENTICATED or IS EXPIRED");
-        console.log(s);
+        console.log(s.accessTokenData);
         console.groupEnd();
 
         const isNotAuthenticated: IsAuthenticated = {
@@ -37,11 +36,10 @@ authenticationRouter.get(
 
       return response.status(200).send(isAuthenticated);
     } catch (error) {
-      console.group("NOT AUTHENTICATED DUE TO ERROR");
+      console.group("/is-authenticated");
       console.log(error);
       console.groupEnd();
 
-      console.log(error);
       const _response: IsAuthenticated = { authenticated: false, user: null };
       return response.status(200).send(_response);
     }
@@ -62,22 +60,28 @@ authenticationRouter.get("/callback", async (request, response) => {
 
   try {
     const accessTokenData = await getSpotifyAccessToken(code.toString());
+    console.log({ accessTokenData });
 
     /**
      * calculate expiration
      */
     const tokenSeconds = accessTokenData.expires_in;
+    console.log({ tokenSeconds });
+
     const expirationDateInMs = calculateExpiration(tokenSeconds);
+    console.log({ expirationDateInMs });
 
     /**
      * get profile
      */
     const user = await getSpotifyProfile(accessTokenData.access_token);
+    console.log({ user });
 
     const isAuthenticated: IsAuthenticated = {
       authenticated: true,
       user,
     };
+    console.log({ isAuthenticated });
 
     if (!isEmpty(accessTokenData)) {
       request.session.accessTokenData = accessTokenData;
@@ -86,9 +90,12 @@ authenticationRouter.get("/callback", async (request, response) => {
       return response.redirect("/");
     }
 
+    console.log(">>> access token is empty");
     return response.redirect("/auth/logout");
   } catch (error) {
-    // TODO: handle error
+    console.group("/callback");
+    console.log(error);
+    console.groupEnd();
     return response.redirect("/");
   }
 });
