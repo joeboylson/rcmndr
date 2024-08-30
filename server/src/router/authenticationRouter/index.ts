@@ -55,47 +55,43 @@ authenticationRouter.get(
   }
 );
 
-authenticationRouter.get(
-  "/callback",
-  alreadyAuthorizedMiddleware,
-  async (request, response) => {
-    const { code } = request.query;
+authenticationRouter.get("/callback", async (request, response) => {
+  const { code } = request.query;
 
-    if (isEmpty(code)) throw new Error("invalid credentials");
+  if (isEmpty(code)) throw new Error("invalid credentials");
 
-    try {
-      const accessTokenData = await getSpotifyAccessToken(code.toString());
+  try {
+    const accessTokenData = await getSpotifyAccessToken(code.toString());
 
-      /**
-       * calculate expiration
-       */
-      const tokenSeconds = accessTokenData.expires_in;
-      const expirationDateInMs = calculateExpiration(tokenSeconds);
+    /**
+     * calculate expiration
+     */
+    const tokenSeconds = accessTokenData.expires_in;
+    const expirationDateInMs = calculateExpiration(tokenSeconds);
 
-      /**
-       * get profile
-       */
-      const user = await getSpotifyProfile(accessTokenData.access_token);
+    /**
+     * get profile
+     */
+    const user = await getSpotifyProfile(accessTokenData.access_token);
 
-      const isAuthenticated: IsAuthenticated = {
-        authenticated: true,
-        user,
-      };
+    const isAuthenticated: IsAuthenticated = {
+      authenticated: true,
+      user,
+    };
 
-      if (!isEmpty(accessTokenData)) {
-        request.session.accessTokenData = accessTokenData;
-        request.session.expirationDateInMs = expirationDateInMs;
-        request.session.isAuthenticated = isAuthenticated;
-        return response.redirect("/");
-      }
-
-      return response.redirect("/auth/logout");
-    } catch (error) {
-      // TODO: handle error
+    if (!isEmpty(accessTokenData)) {
+      request.session.accessTokenData = accessTokenData;
+      request.session.expirationDateInMs = expirationDateInMs;
+      request.session.isAuthenticated = isAuthenticated;
       return response.redirect("/");
     }
+
+    return response.redirect("/auth/logout");
+  } catch (error) {
+    // TODO: handle error
+    return response.redirect("/");
   }
-);
+});
 
 authenticationRouter.get("/logout", function (request, response) {
   console.info(">>> LOGGING OUT");

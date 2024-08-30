@@ -3,6 +3,7 @@ import {
   getSpotifyProfile,
   createEmptyPlaylist,
   addTracksToPlaylist,
+  alreadyAuthorizedMiddleware,
 } from "../../utils";
 import { CreatePlaylistRequest } from "@shared/types";
 
@@ -10,7 +11,7 @@ export const playlistRouter = express.Router();
 
 playlistRouter.post(
   "/create",
-  // TODO: ensure authenticated
+  alreadyAuthorizedMiddleware,
   async (request: Request, response: Response) => {
     try {
       const createPlaylistRequest =

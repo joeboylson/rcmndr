@@ -1,5 +1,9 @@
 import express, { Request, Response } from "express";
-import { getRecommendations, searchTracks } from "../../utils";
+import {
+  alreadyAuthorizedMiddleware,
+  getRecommendations,
+  searchTracks,
+} from "../../utils";
 import {
   RecommendationsRequest,
   RecommendationsResponse,
@@ -9,7 +13,7 @@ export const trackRouter = express.Router();
 
 trackRouter.get(
   "/search",
-  // TODO: ensure authenticated
+  alreadyAuthorizedMiddleware,
   async (request: Request, response: Response) => {
     try {
       const { q } = request.query;
@@ -29,7 +33,7 @@ trackRouter.get(
 
 trackRouter.get(
   "/recommendations",
-  // TODO: ensure authenticated
+  alreadyAuthorizedMiddleware,
   async (request: Request, response: Response) => {
     try {
       const recommendationsRequest = request.query as RecommendationsRequest;
