@@ -194,4 +194,12 @@ export const PropertyDescription = styled("p")`
   display: block;
   grid-column: span 2;
   text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 10px;
+  }
 `;

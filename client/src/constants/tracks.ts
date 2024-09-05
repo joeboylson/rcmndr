@@ -1,7 +1,8 @@
 import { PropertyDataKey } from "../enums";
 
 export const propertyDescriptions = {
-  [PropertyDataKey.POPULARITY]: "",
+  [PropertyDataKey.POPULARITY]:
+    "The popularity of a track is a value between 0 and 100, with 100 being the most popular. The popularity is calculated by algorithm and is based on the total number of plays the track has had and how recent those plays are. Generally speaking, songs that are being played a lot now will have a higher popularity than songs that were played a lot in the past.",
   [PropertyDataKey.ACOUSTICNESS]:
     "A confidence measure from 0 to 100 of whether the track is acoustic. 100 represents high confidence the track is acoustic.",
   [PropertyDataKey.DANCEABILITY]:

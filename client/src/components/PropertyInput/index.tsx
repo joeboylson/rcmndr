@@ -6,7 +6,7 @@ import {
   PropertyInputContentBackground,
   StyledPropertyInput,
 } from "./styledComponents";
-import { compact } from "lodash";
+import { compact, isEqual } from "lodash";
 import { ParentBounds, PropertyData } from "../../types";
 import { Portal } from "@mui/material";
 import { useToggle } from "../../hooks/useToggle";
@@ -37,12 +37,9 @@ export default function PropertyInput({
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleValueChange = (value: [number, number]) => {
-    const _propertyData = { ...propertyData, value };
-    onChange(_propertyData);
-  };
-
-  const handleMakeActive = () => {
-    const _propertyData = { ...propertyData, active: true };
+    const defaultValue = [20, 80];
+    const active = !isEqual(value, defaultValue);
+    const _propertyData = { ...propertyData, value, active };
     onChange(_propertyData);
   };
 
@@ -55,8 +52,6 @@ export default function PropertyInput({
 
   const handleOpen = () => {
     if (disabled) return;
-
-    handleMakeActive();
     setParentBounds();
     setPropertyIsOpen(true);
 
