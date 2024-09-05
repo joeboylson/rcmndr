@@ -11,13 +11,38 @@ const StyledLogin = styled("div")`
 
 const LoginLink = styled("a")`
   display: block;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.3);
   text-align: center;
   text-decoration: none;
   border: 1px solid white;
   color: white;
-  padding: 8px 24px;
+  padding: 12px 32px;
   border-radius: 50px;
+  z-index: +1;
+  font-size: 24px;
+`;
+
+const VideoWrapper = styled("div")`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.5;
+  filter: hue-rotate(110deg);
+`;
+
+const Logo = styled("img")`
+  display: block;
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 48px;
+  background-color: black;
+  padding: 8px;
+  z-index: +1;
+  border-radius: 48px;
 `;
 
 export default function Login() {
@@ -34,7 +59,13 @@ export default function Login() {
 
   return (
     <StyledLogin>
+      <Logo src="logo.png" />
       <LoginLink href={authenticationUrl}>Login with Spotify</LoginLink>
+      <VideoWrapper>
+        <video autoPlay>
+          <source src="login-backround-video.mp4" type="video/mp4" />
+        </video>
+      </VideoWrapper>
     </StyledLogin>
   );
 }
