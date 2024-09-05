@@ -31,6 +31,11 @@ const VideoWrapper = styled("div")`
   z-index: 0;
   opacity: 0.5;
   filter: hue-rotate(110deg);
+  margin: 0 auto;
+
+  display: grid;
+  place-items: center;
+  justify-content: center;
 `;
 
 const Logo = styled("img")`
