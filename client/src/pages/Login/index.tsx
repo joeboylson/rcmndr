@@ -62,8 +62,8 @@ export default function Login() {
       <Logo src="logo.png" />
       <LoginLink href={authenticationUrl}>Login with Spotify</LoginLink>
       <VideoWrapper>
-        <video autoPlay>
-          <source src="login-backround-video.mp4" type="video/mp4" />
+        <video autoPlay muted loop>
+          <source src="login-backround-video.webm" type="video/webm" />
         </video>
       </VideoWrapper>
     </StyledLogin>
