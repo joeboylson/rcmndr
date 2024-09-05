@@ -13,4 +13,29 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
+
+  <script>
+    /**
+     * On Chrome mobile, the address bar likes to hide and show again - however,
+     * the page will not detect this size change and will scroll a little bit.
+     *
+     * This quick script is meant to fix this by listening to the page size and
+     * resetting the height of the base elements.
+     */
+
+    function updateBodyHeight() {
+      const elements = Array.from([
+        document.querySelector("body"),
+        document.querySelector("#root"),
+      ]);
+
+      elements.forEach((element) => {
+        element.style.height = `${window.innerHeight}px`;
+      });
+    }
+
+    updateBodyHeight();
+
+    window.addEventListener("resize", updateBodyHeight);
+  </script>
 </html>
