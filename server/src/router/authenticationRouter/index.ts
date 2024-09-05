@@ -22,7 +22,6 @@ authenticationRouter.get(
       const isExpired = rightNowInMs > (s.expirationDateInMs ?? 0);
 
       if (!isAuthenticated || isExpired) {
-        console.info(">>> NOT AUTHENTICATED or IS EXPIRED");
         const isNotAuthenticated: IsAuthenticated = {
           authenticated: false,
           user: null,
@@ -33,10 +32,6 @@ authenticationRouter.get(
 
       return response.status(200).send(isAuthenticated);
     } catch (error) {
-      console.group("/is-authenticated");
-      console.error(error);
-      console.groupEnd();
-
       const _response: IsAuthenticated = { authenticated: false, user: null };
       return response.status(200).send(_response);
     }
@@ -83,15 +78,11 @@ authenticationRouter.get("/callback", async (request, response) => {
 
     return response.redirect("/auth/logout");
   } catch (error) {
-    console.group("/callback");
-    console.error(error);
-    console.groupEnd();
     return response.redirect("/");
   }
 });
 
 authenticationRouter.get("/logout", function (request, response) {
-  console.info(">>> LOGGING OUT");
   request.session.accessTokenData = null;
   return response.redirect("/");
 });

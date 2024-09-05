@@ -9,10 +9,7 @@ export function useStateDebounced<T>(
   const [debouncing, setDebouncing] = useState(false);
   const debouncedSetValue = debounce(_setValue, debounceAmount ?? 500);
 
-  useEffect(() => {
-    console.info(value);
-    setDebouncing(false);
-  }, [value]);
+  useEffect(() => setDebouncing(false), [value]);
 
   const setValue = useCallback((_value: T) => {
     setDebouncing(true);

@@ -55,7 +55,6 @@ export function generateSpotifyAuthUrl() {
       scope: scope,
       redirect_uri: SPOTIFY_REDIRECT_URL,
       state: state,
-      show_dialogue: true,
     })
   );
 }
