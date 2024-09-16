@@ -63,7 +63,7 @@ export default function Login() {
   if (loading) return <p>loading</p>;
 
   return (
-    <StyledLogin>
+    <StyledLogin id="login">
       <Logo src="logo.png" />
       <LoginLink href={authenticationUrl}>Login with Spotify</LoginLink>
       <VideoWrapper>

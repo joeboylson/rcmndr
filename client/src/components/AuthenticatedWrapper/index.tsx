@@ -28,7 +28,7 @@ export default function AuthenticatedWrapper({ children }: WithChildren) {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <StyledAuthenticatedWrapper>
+    <StyledAuthenticatedWrapper id="auth-wrapper">
       <UserContext.Provider value={{ authenticatedUser }}>
         <Header />
         {children}

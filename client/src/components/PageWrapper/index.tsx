@@ -23,5 +23,5 @@ const StyledPageWrapper = styled("div")`
 `;
 
 export default function PageWrapper({ children }: WithChildren) {
-  return <StyledPageWrapper>{children}</StyledPageWrapper>;
+  return <StyledPageWrapper id="page-wrapper">{children}</StyledPageWrapper>;
 }
