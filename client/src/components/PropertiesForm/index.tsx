@@ -21,7 +21,7 @@ const StyledPropertiesForm = styled("div")`
 
 const StepWrapper = styled("div")`
   width: 100%;
-  height: calc(100vh - 96px - 64px);
+  height: calc(95vh - 96px - 64px);
   padding-bottom: 24px;
   display: grid;
   grid-template-columns: 1fr;
